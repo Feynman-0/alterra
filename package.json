@@ -1,0 +1,24 @@
+{
+  "name": "alterra",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Alterra — Independent Commercial Banking Advisory. Marketing site.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "framer-motion": "^12.7.4",
+    "lenis": "^1.2.3",
+    "next": "^15.3.2",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.0",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "typescript": "^5.8.3"
+  }
+}
