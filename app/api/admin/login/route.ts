@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
-import { ADMIN_COOKIE, ADMIN_PASSWORD, adminCookieOptions, adminSessionToken } from "@/lib/adminAuth";
+import { ADMIN_COOKIE, adminCookieOptions, adminSessionToken, isAdminPassword } from "@/lib/adminAuth";
 
 export async function POST(req: Request) {
   let body: { password?: string };
@@ -10,7 +10,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: false, error: "Invalid request." }, { status: 400 });
   }
 
-  if (body.password !== ADMIN_PASSWORD) {
+  if (!body.password || !isAdminPassword(body.password)) {
     return NextResponse.json({ ok: false, error: "Incorrect password." }, { status: 401 });
   }
 

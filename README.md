@@ -39,6 +39,19 @@ After the domain is registered (client prefers `.com`), update `site.url` in `li
 
 Set `ADMIN_PASSWORD` in your deployment environment before using `/admin`. The login cookie hash is derived from that value on the server, so the password no longer lives in source control.
 
+Local development:
+
+- Put the value in `.env.local` at the repo root.
+- Copy `.env.example` if you want a template.
+
+Vercel:
+
+1. Open your project in the Vercel dashboard.
+2. Go to Settings.
+3. Open Environment Variables.
+4. Add `ADMIN_PASSWORD` as the key and paste the same value you use locally.
+5. Save, then redeploy.
+
 ## Lead capture & booking
 
 The contact form and the scheduler both POST to `app/api/enquiry/route.ts`:
