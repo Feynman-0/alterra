@@ -76,11 +76,19 @@ export default function Nav() {
           <motion.div
             id="mobile-menu"
             className="nav-overlay"
-            initial={{ clipPath: "inset(0 0 100% 0)" }}
-            animate={{ clipPath: "inset(0 0 0% 0)" }}
-            exit={{ clipPath: "inset(0 0 100% 0)" }}
-            transition={{ duration: 0.6, ease: EASE }}
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.35, ease: EASE }}
           >
+            <button
+              type="button"
+              className="nav-overlay-close"
+              aria-label="Close menu"
+              onClick={() => setOpen(false)}
+            >
+              ×
+            </button>
             <nav aria-label="Mobile">
               <ul>
                 {[{ label: "Home", href: "/" }, ...nav.links].map((l, i) => (
