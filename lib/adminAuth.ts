@@ -1,18 +1,20 @@
 import { createHash } from "node:crypto";
 
-/**
- * Admin panel password — intentionally stored in code, per request.
- * Change this before launch, and again any time someone with repo access
- * shouldn't keep admin access.
- */
-export const ADMIN_PASSWORD = "Alterra-Granite2026!";
+function getAdminPassword(): string {
+  const password = process.env.ADMIN_PASSWORD;
+
+  if (!password) {
+    throw new Error("Missing ADMIN_PASSWORD environment variable.");
+  }
+
+  return password;
+}
 
 export const ADMIN_COOKIE = "alterra_admin_session";
 const ADMIN_COOKIE_MAX_AGE = 60 * 60 * 24 * 7; // 7 days
 
-/** Deterministic session token — no external secret store needed for a single hardcoded password. */
 export function adminSessionToken(): string {
-  return createHash("sha256").update(`alterra-admin::${ADMIN_PASSWORD}`).digest("hex");
+  return createHash("sha256").update(`alterra-admin::${getAdminPassword()}`).digest("hex");
 }
 
 export function adminCookieOptions() {

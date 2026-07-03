@@ -35,6 +35,10 @@ npm run build   # production build
 
 After the domain is registered (client prefers `.com`), update `site.url` in `lib/content.ts` — canonical URLs, sitemap, robots and OpenGraph all read from it.
 
+### Admin login env var
+
+Set `ADMIN_PASSWORD` in your deployment environment before using `/admin`. The login cookie hash is derived from that value on the server, so the password no longer lives in source control.
+
 ## Lead capture & booking
 
 The contact form and the scheduler both POST to `app/api/enquiry/route.ts`:
