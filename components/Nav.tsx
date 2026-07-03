@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { nav, site } from "@/lib/content";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -12,6 +13,7 @@ export default function Nav() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -21,6 +23,7 @@ export default function Nav() {
   }, []);
 
   useEffect(() => setOpen(false), [pathname]);
+  useEffect(() => setMounted(true), []);
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
     return () => {
@@ -71,8 +74,10 @@ export default function Nav() {
         </button>
       </div>
 
-      <AnimatePresence>
-        {open && (
+      {mounted &&
+        createPortal(
+          <AnimatePresence>
+            {open && (
           <motion.div
             id="mobile-menu"
             className="nav-overlay"
@@ -120,8 +125,10 @@ export default function Nav() {
               <a href={`mailto:${site.email}`}>{site.email}</a>
             </motion.div>
           </motion.div>
+            )}
+          </AnimatePresence>,
+          document.body
         )}
-      </AnimatePresence>
     </header>
   );
 }
