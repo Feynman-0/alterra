@@ -1,8 +1,15 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
-import { ADMIN_COOKIE, adminCookieOptions, adminSessionToken, isAdminPassword } from "@/lib/adminAuth";
+import { ADMIN_COOKIE, adminCookieOptions, adminSessionToken, isAdminAuthConfigured, isAdminPassword } from "@/lib/adminAuth";
 
 export async function POST(req: Request) {
+  if (!isAdminAuthConfigured()) {
+    return NextResponse.json(
+      { ok: false, error: "Admin password is not configured. Set ADMIN_PASSWORD in Vercel." },
+      { status: 500 }
+    );
+  }
+
   let body: { password?: string };
   try {
     body = await req.json();
